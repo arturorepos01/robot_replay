@@ -49,6 +49,8 @@ for i, accion in enumerate(acciones, start=1):
 
     dispatcher.dispatch(accion, ctx)
 
+    input("\nPresione ENTER para continuar...")
+
     if accion.tag == "BUTTON" and accion.texto == "INICIAR SESIÓN":
         print("\n==============================")
         print("LOGIN EJECUTADO")
