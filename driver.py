@@ -27,14 +27,14 @@ class Driver:
             locator.click()
         except PlaywrightTimeoutError:
             locator.click(force=True)
-        print(self.page.content()[:2000])
-        print("[Driver] Esperando networkidle...")
+        # print(self.page.content()[:2000])
+        # print("[Driver] Esperando networkidle...")
         try:
             self.page.wait_for_load_state("networkidle", timeout=5000)
-            print("[Driver] networkidle OK")
+            # print("[Driver] networkidle OK")
         except PlaywrightTimeoutError:
             print("[Driver] networkidle TIMEOUT")
-        print(f"[Driver] URL actual = {self.page.url}")
+        # print(f"[Driver] URL actual = {self.page.url}")
         self.stabilize()
         self.page.wait_for_timeout(1500)
 

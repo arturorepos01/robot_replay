@@ -12,8 +12,8 @@ class ClickExecutor(ActionExecutor):
 
         result = self.locate(action, context)
 
-        print(f"[ClickExecutor] result = {result}")
-        print(f"[ClickExecutor] tipo = {type(result)}")
+        # print(f"[ClickExecutor] result = {result}")
+        # print(f"[ClickExecutor] tipo = {type(result)}")
 
         if result is None:
 
@@ -21,8 +21,8 @@ class ClickExecutor(ActionExecutor):
 
             return
 
-        print("[ClickExecutor] Antes del click")
+        # print("[ClickExecutor] Antes del click")
 
         context.driver.click(result)
 
-        print("[ClickExecutor] Después del click")
+        # print("[ClickExecutor] Después del click")

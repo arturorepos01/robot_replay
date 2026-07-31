@@ -19,8 +19,8 @@ class PlaceholderStrategy(SelectorStrategy):
 
         count = locator.count()
 
-        print(f"[PlaceholderStrategy] selector = input[placeholder=\"{action.placeholder}\"]")
-        print(f"[PlaceholderStrategy] encontrados = {count}")
+        # print(f"[PlaceholderStrategy] selector = input[placeholder=\"{action.placeholder}\"]")
+        # print(f"[PlaceholderStrategy] encontrados = {count}")
 
         if count == 0:
             return None

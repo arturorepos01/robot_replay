@@ -29,19 +29,19 @@ class SelectExecutor(ActionExecutor):
 
     def execute(self, action, context):
 
-        print("\n========== SELECT EXECUTOR ==========")
-        print(f"tipo             : {action.tipo}")
-        print(f"tipo_logico      : {action.tipo_logico}")
-        print(f"tipo_componente  : {action.tipo_componente}")
-        print(f"field            : {action.field}")
-        print(f"texto            : {action.texto}")
-        print(f"valor            : {action.valor}")
-        print(f"placeholder      : {action.placeholder}")
-        print(f"modo             : {action.modo}")
-        print(f"id               : {action.id}")
-        print("=====================================\n")
+        # print("\n========== SELECT EXECUTOR ==========")
+        # print(f"tipo             : {action.tipo}")
+        # print(f"tipo_logico      : {action.tipo_logico}")
+        # print(f"tipo_componente  : {action.tipo_componente}")
+        # print(f"field            : {action.field}")
+        # print(f"texto            : {action.texto}")
+        # print(f"valor            : {action.valor}")
+        # print(f"placeholder      : {action.placeholder}")
+        # print(f"modo             : {action.modo}")
+        # print(f"id               : {action.id}")
+        # print("=====================================\n")
 
-        print(f"[SelectExecutor] tipo_componente = {action.tipo_componente}")
+        # print(f"[SelectExecutor] tipo_componente = {action.tipo_componente}")
         if action.tipo_componente == "input":
             self._abrir_select(action, context)
             return
@@ -51,7 +51,7 @@ class SelectExecutor(ActionExecutor):
             
             opciones = context.page.locator(".ng-dropdown-panel .ng-option")
             cantidad = opciones.count()
-            print(f"[SelectExecutor] Cantidad de opciones = {cantidad}")
+            # print(f"[SelectExecutor] Cantidad de opciones = {cantidad}")
 
             for i in range(cantidad):
 
@@ -59,12 +59,12 @@ class SelectExecutor(ActionExecutor):
 
                 texto = opcion.inner_text().strip()
 
-                print("--------------------------------")
-                print(texto)
+                # print("--------------------------------")
+                # print(texto)
 
                 if texto == action.texto.strip():
 
-                    print(f"[SelectExecutor] Opción encontrada en índice {i}")
+                    # print(f"[SelectExecutor] Opción encontrada en índice {i}")
 
                     opcion.click()
 

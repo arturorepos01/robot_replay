@@ -11,22 +11,22 @@ class TextStrategy(SelectorStrategy):
             print("[TextStrategy] texto vacío")
             return None
 
-        print(f"[TextStrategy] tag={action.tag}")
-        print(f"[TextStrategy] texto='{action.texto}'")
+        # print(f"[TextStrategy] tag={action.tag}")
+        # print(f"[TextStrategy] texto='{action.texto}'")
 
         # Si la acción corresponde a un botón, buscar un botón.
         if action.tag and action.tag.upper() == "BUTTON":
 
             locator = page.get_by_role("button", name=action.texto)
-            print(f"[TextStrategy] button count={locator.count()}")
+            # print(f"[TextStrategy] button count={locator.count()}")
 
         # Si corresponde a un enlace.
         elif action.tag and action.tag.upper() == "A":
 
             locator = page.get_by_text(action.texto, exact=True)
 
-            print(f"[TextStrategy] text(exact) count={locator.count()}")
-            print(f"[TextStrategy] link count={locator.count()}")
+            # print(f"[TextStrategy] text(exact) count={locator.count()}")
+            # print(f"[TextStrategy] link count={locator.count()}")
 
         # Para cualquier otro caso, mantener la búsqueda por texto.
         else:
