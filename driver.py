@@ -52,7 +52,10 @@ class Driver:
         locator.click()
         locator.fill("")
         locator.type(value, delay=50)
-        locator.press("Tab")
+        self.page.wait_for_timeout(3000)
+        print("Valor después de 3 segundos:", locator.input_value())
+        print("Valor leído:", locator.input_value())
+        # locator.press("Tab")
 
         self.stabilize()
 

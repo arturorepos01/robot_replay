@@ -18,6 +18,20 @@ class PlaceholderStrategy(SelectorStrategy):
         )
 
         count = locator.count()
+        print(f"[PlaceholderStrategy] encontrados = {count}")
+
+        for i in range(count):
+            l = locator.nth(i)
+
+            try:
+                print(
+                    f"{i}: "
+                    f"visible={l.is_visible()} "
+                    f"enabled={l.is_enabled()} "
+                    f"value='{l.input_value()}'"
+                )
+            except Exception as e:
+                print(f"{i}: ERROR {e}")
 
         # print(f"[PlaceholderStrategy] selector = input[placeholder=\"{action.placeholder}\"]")
         # print(f"[PlaceholderStrategy] encontrados = {count}")

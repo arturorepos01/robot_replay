@@ -1,6 +1,6 @@
 [
   {
-    "flow_id": "202608071427",
+    "flow_id": "202607301519",
     "container_tag": "FORM",
     "container_class": "ng-untouched ng-pristine ng-invalid",
     "field": "codUsuario",
@@ -14,10 +14,10 @@
     "clase": "form-control input-lg ng-untouched ng-pristine ng-invalid",
     "placeholder": "Rut con dígito verificador",
     "url": "https://unijud-qa.pjud.cl/login",
-    "timestamp": "2026-08-07T18:27:56.381Z"
+    "timestamp": "2026-07-30T19:20:05.035Z"
   },
   {
-    "flow_id": "202608071427",
+    "flow_id": "202607301519",
     "container_tag": "FORM",
     "container_class": "ng-untouched ng-invalid ng-dirty",
     "tipo": "input",
@@ -28,10 +28,10 @@
     "valor": "9298378-1",
     "index": 0,
     "url": "https://unijud-qa.pjud.cl/login",
-    "timestamp": "2026-08-07T18:28:07.319Z"
+    "timestamp": "2026-07-30T19:20:11.690Z"
   },
   {
-    "flow_id": "202608071427",
+    "flow_id": "202607301519",
     "container_tag": "FORM",
     "container_class": "ng-invalid ng-dirty ng-touched",
     "field": "password",
@@ -45,10 +45,10 @@
     "clase": "form-control input-lg ng-untouched ng-pristine ng-invalid",
     "placeholder": "Contraseña",
     "url": "https://unijud-qa.pjud.cl/login",
-    "timestamp": "2026-08-07T18:28:07.453Z"
+    "timestamp": "2026-07-30T19:20:11.794Z"
   },
   {
-    "flow_id": "202608071427",
+    "flow_id": "202607301519",
     "container_tag": "FORM",
     "container_class": "ng-invalid ng-dirty ng-touched",
     "field": "password",
@@ -62,10 +62,10 @@
     "clase": "form-control input-lg ng-untouched ng-pristine ng-invalid",
     "placeholder": "Contraseña",
     "url": "https://unijud-qa.pjud.cl/login",
-    "timestamp": "2026-08-07T18:28:23.005Z"
+    "timestamp": "2026-07-30T19:20:19.642Z"
   },
   {
-    "flow_id": "202608071427",
+    "flow_id": "202607301519",
     "container_tag": "FORM",
     "container_class": "ng-dirty ng-touched ng-valid",
     "tipo": "input",
@@ -76,11 +76,11 @@
     "valor": "SistemaUnijud.2011",
     "index": 0,
     "url": "https://unijud-qa.pjud.cl/login",
-    "timestamp": "2026-08-07T18:28:24.972Z",
+    "timestamp": "2026-07-30T19:20:21.162Z",
     "es_password": true
   },
   {
-    "flow_id": "202608071427",
+    "flow_id": "202607301519",
     "container_tag": "DIV",
     "container_class": "justify-content-between",
     "field": "",
@@ -94,10 +94,10 @@
     "clase": "btn btn-block btn-purpura font-weight-bold btn-lg text-white text-uppercase",
     "placeholder": "",
     "url": "https://unijud-qa.pjud.cl/login",
-    "timestamp": "2026-08-07T18:28:25.060Z"
+    "timestamp": "2026-07-30T19:20:21.242Z"
   },
   {
-    "flow_id": "202608071427",
+    "flow_id": "202607301519",
     "container_tag": "DIV",
     "container_class": "sidebar-content nivel-tamannio-2 ps ps--active-y",
     "field": "",
@@ -108,15 +108,15 @@
     "texto": "Ingresos",
     "valor": "Ingresos",
     "id": "",
-    "clase": "ng-tns-c5-0 ng-star-inserted",
+    "clase": "ng-tns-c6-0 ng-star-inserted",
     "placeholder": "",
     "url": "https://unijud-qa.pjud.cl/full-layout",
-    "timestamp": "2026-08-07T18:28:32.645Z"
+    "timestamp": "2026-07-30T19:20:24.883Z"
   },
   {
-    "flow_id": "202608071427",
+    "flow_id": "202607301519",
     "container_tag": "UL",
-    "container_class": "menu-content ng-tns-c5-0 ng-trigger ng-trigger-slideInOut ng-star-inserted",
+    "container_class": "menu-content ng-tns-c6-0 ng-trigger ng-trigger-slideInOut ng-star-inserted",
     "field": "",
     "tipo": "click",
     "tipo_logico": "click",
@@ -125,13 +125,13 @@
     "texto": "Escritos",
     "valor": "Escritos",
     "id": "",
-    "clase": "ng-tns-c5-0 ng-star-inserted",
+    "clase": "ng-tns-c6-0 ng-star-inserted",
     "placeholder": "",
     "url": "https://unijud-qa.pjud.cl/full-layout",
-    "timestamp": "2026-08-07T18:28:33.628Z"
+    "timestamp": "2026-07-30T19:20:25.898Z"
   },
   {
-    "flow_id": "202608071427",
+    "flow_id": "202607301519",
     "container_tag": "FORM",
     "container_class": "ng-untouched ng-pristine ng-invalid",
     "field": "textCausa",
@@ -145,10 +145,10 @@
     "clase": "form-control ng-untouched ng-pristine ng-invalid",
     "placeholder": "O-1234-2022",
     "url": "https://unijud-qa.pjud.cl/ingresos/escrito-diario/ingresar",
-    "timestamp": "2026-08-07T18:28:43.644Z"
+    "timestamp": "2026-07-30T19:20:40.722Z"
   },
   {
-    "flow_id": "202608071427",
+    "flow_id": "202607301519",
     "container_tag": "FORM",
     "container_class": "ng-untouched ng-dirty ng-valid",
     "tipo": "input",
@@ -159,10 +159,10 @@
     "valor": "O-10-2026",
     "index": 1,
     "url": "https://unijud-qa.pjud.cl/ingresos/escrito-diario/ingresar",
-    "timestamp": "2026-08-07T18:28:56.703Z"
+    "timestamp": "2026-07-30T19:20:47.523Z"
   },
   {
-    "flow_id": "202608071427",
+    "flow_id": "202607301519",
     "container_tag": "DIV",
     "container_class": "form-content",
     "field": "participante",
@@ -176,11 +176,11 @@
     "clase": "form-control ng-select ng-select-single ng-select-searchable ng-select-clearable ng-untouched ng-pristine ng-invalid ng-select-focused ng-select-opened ng-select-bottom",
     "placeholder": "--Seleccione--",
     "url": "https://unijud-qa.pjud.cl/ingresos/escrito-diario/ingresar",
-    "timestamp": "2026-08-07T18:29:00.950Z",
+    "timestamp": "2026-07-30T19:20:50.410Z",
     "modo": "solo_seleccion"
   },
   {
-    "flow_id": "202608071427",
+    "flow_id": "202607301519",
     "container_tag": "DIV",
     "container_class": "form-content",
     "field": "tipo-escrito",
@@ -194,11 +194,11 @@
     "clase": "form-control ng-select ng-select-single ng-select-searchable ng-select-clearable ng-untouched ng-pristine ng-invalid ng-select-focused ng-select-opened ng-select-bottom ng-select-filtered",
     "placeholder": "--Seleccione tipo--",
     "url": "https://unijud-qa.pjud.cl/ingresos/escrito-diario/ingresar",
-    "timestamp": "2026-08-07T18:29:06.278Z",
+    "timestamp": "2026-07-30T19:20:55.050Z",
     "modo": "solo_seleccion"
   },
   {
-    "flow_id": "202608071427",
+    "flow_id": "202607301519",
     "container_tag": "DIV",
     "container_class": "form-content",
     "field": "",
@@ -212,6 +212,23 @@
     "clase": "btn btn-principal mr-2",
     "placeholder": "",
     "url": "https://unijud-qa.pjud.cl/ingresos/escrito-diario/ingresar",
-    "timestamp": "2026-08-07T18:29:06.998Z"
+    "timestamp": "2026-07-30T19:20:56.603Z"
+  },
+  {
+    "flow_id": "202607301519",
+    "container_tag": "DIV",
+    "container_class": "form-content",
+    "field": "",
+    "tipo": "click",
+    "tipo_logico": "click",
+    "tipo_componente": "unknown",
+    "tag": "DIV",
+    "texto": "Grabar escrito Limpiar",
+    "valor": "Grabar escrito Limpiar",
+    "id": "",
+    "clase": "form-actions right",
+    "placeholder": "",
+    "url": "https://unijud-qa.pjud.cl/ingresos/escrito-diario/ingresar/usuario",
+    "timestamp": "2026-07-30T19:21:04.747Z"
   }
 ]
