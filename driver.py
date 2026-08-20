@@ -24,6 +24,7 @@ class Driver:
         except Exception:
             pass
         try:
+            
             locator.click()
         except PlaywrightTimeoutError:
             locator.click(force=True)

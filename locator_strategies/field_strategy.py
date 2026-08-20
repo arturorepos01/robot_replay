@@ -8,9 +8,10 @@ class FieldStrategy:
         if not action.field:
             return None
 
-        selector = f'[field="{action.field}"]'
-
+        selector = f'[formcontrolname="{action.field}"]'
+        print(f"[FieldStrategy] selector = {selector}")
         locator = page.locator(selector)
+        print(f"[FieldStrategy] encontrados = {locator.count()}")
 
         if locator.count() == 0:
             return None

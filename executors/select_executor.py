@@ -19,13 +19,78 @@ class SelectExecutor(ActionExecutor):
             print(f"[SelectExecutor] selector = {result.selector}")
 
         print(f"[SelectExecutor] result = {result}")
+
         if result is None:
             print("[SelectExecutor] No se encontró el select")
-            return
-        
+            return None
+
+        print(f"[SelectExecutor] URL = {context.page.url}")
+
         print("[SelectExecutor] Abriendo el selector...")
-        
-        context.driver.click(result)
+
+        locator = result.locator
+        print(locator.evaluate("""
+            (el) => ({
+                display: getComputedStyle(el).display,
+                visibility: getComputedStyle(el).visibility,
+                width: el.offsetWidth,
+                height: el.offsetHeight
+            })
+            """))
+        try:
+            contenedor = locator.locator(".ng-select-container")
+
+            print(
+                "[SelectExecutor] ng-select-container encontrados =",
+                contenedor.count()
+            )
+
+            contenedor.click(timeout=5000)
+            # Para ng-select hacemos clic sobre el contenedor visible
+            # locator.locator(".ng-select-container").click(timeout=5000)
+        except Exception as e:
+
+            print("\n" + "=" * 80)
+            print("ERROR AL ABRIR EL NG-SELECT")
+            print("Tipo:", type(e).__name__)
+            print("Mensaje:", e)
+            print("=" * 80 + "\n")
+
+            locator = result.locator
+            if result.selector == "#tipPersona":
+
+                print("[SelectExecutor] Capturando pantalla antes de abrir tipPersona...")
+
+                context.page.screenshot(
+                    path="antes_tipPersona.png",
+                    full_page=True
+                )
+            
+            # locator.wait_for(state="attached", timeout=10000)
+            contenedor = locator.locator(".ng-select-container")
+            contenedor.wait_for(state="visible", timeout=10000)
+
+            context.page.wait_for_function(
+                """
+                (el) => {
+                    const r = el.getBoundingClientRect();
+                    return r.width > 0 && r.height > 0;
+                }
+                """,
+                arg=locator.element_handle(),
+                timeout=10000
+            )
+
+            # context.driver.click(result)
+            contenedor.click(timeout=5000)
+
+        context.page.wait_for_selector(
+            ".ng-dropdown-panel",
+            state="visible",
+            timeout=10000
+        )
+
+        return result
 
     def execute(self, action, context):
 
@@ -67,6 +132,14 @@ class SelectExecutor(ActionExecutor):
                     # print(f"[SelectExecutor] Opción encontrada en índice {i}")
 
                     opcion.click()
+
+                    context.page.wait_for_selector(
+                        ".ng-dropdown-panel",
+                        state="hidden",
+                        timeout=10000
+                    )
+
+                    context.page.wait_for_timeout(300)
 
                     print("[SelectExecutor] Opción seleccionada")
 

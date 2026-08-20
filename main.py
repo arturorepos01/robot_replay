@@ -1,3 +1,4 @@
+import time
 from loader.json_loader import JsonLoader
 from engine.dispatcher import Dispatcher
 from executors.click_executor import ClickExecutor
@@ -49,8 +50,8 @@ for i, accion in enumerate(acciones, start=1):
 
     dispatcher.dispatch(accion, ctx)
 
-    input("\nPresione ENTER para continuar...")
-
+    # input("\nPresione ENTER para continuar...")
+    time.sleep(3)
     # if accion.tag == "BUTTON" and accion.texto == "INICIAR SESIÓN":
     #     print("\n==============================")
     #     print("LOGIN EJECUTADO")
