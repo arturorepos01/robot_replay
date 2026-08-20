@@ -17,4 +17,4 @@ class InputExecutor(ActionExecutor):
         print(f"[InputExecutor] Llenando: {action.valor}")
 
         context.driver.fill(result, action.valor)
-        # result.locator.press("Tab")
+        result.locator.press("Tab")
