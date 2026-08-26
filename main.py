@@ -1,19 +1,38 @@
 import time
+# nuevo inicio
+import json
+# nuevo fin
 from loader.json_loader import JsonLoader
 from engine.dispatcher import Dispatcher
 from executors.click_executor import ClickExecutor
 from executors.input_executor import InputExecutor
 from executors.select_executor import SelectExecutor
 from models.replay_context import ReplayContext
+# nuevo inicio
+from services.oracle_credentials import OracleCredentials
+# nuevo fin
 from playwright.sync_api import sync_playwright
 from driver import Driver
-
+# nuevo inicio
+from services.oracle_credentials import OracleCredentials
+# nuevo fin
 
 loader = JsonLoader()
 
 acciones = loader.load("user_actions.json")
 
 ctx = ReplayContext()
+# nuevo inicio
+with open("config.json", "r", encoding="utf-8") as f:
+    config = json.load(f)
+
+credential_service = OracleCredentials(config)
+
+ctx.credentials = credential_service.obtener_credencial_aleatoria()
+
+print("[Oracle] Cuenta de prueba seleccionada:", ctx.credentials["cuenta"])
+print("[Oracle] Contraseña obtenida: ********")
+# nuevo fin
 
 ctx.driver = Driver(ctx.page)
 playwright = sync_playwright().start()

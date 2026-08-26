@@ -12,3 +12,4 @@ class ReplayContext:
         self.statistics = {}
         self.errors = []
         self.driver = None
+        self.credentials = None
