@@ -1,0 +1,16 @@
+{
+    "oracle": {
+        "usuario": "laravel",
+        "password": "2hW*kbL5iSvoXY##3gJV",
+        "dsn": "famitest.bdd.pjud:1530/famitest"
+    },
+
+    "credenciales_test": {
+        "grupo": "UNIJUD",
+        "tabla": "ROBOT_TEST_CUENTAS",
+        "campo_grupo": "GRUPO",        
+        "campo_cuenta": "CUENTA",
+        "campo_password": "CONTRASENA",
+        "campo_activo": "ACTIVO"
+    }
+}
