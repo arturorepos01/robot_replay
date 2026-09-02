@@ -13,9 +13,6 @@ from services.oracle_credentials import OracleCredentials
 # nuevo fin
 from playwright.sync_api import sync_playwright
 from driver import Driver
-# nuevo inicio
-from services.oracle_credentials import OracleCredentials
-# nuevo fin
 
 loader = JsonLoader()
 
@@ -30,11 +27,11 @@ credential_service = OracleCredentials(config)
 
 ctx.credentials = credential_service.obtener_credencial_aleatoria()
 
-print("[Oracle] Cuenta de prueba seleccionada:", ctx.credentials["cuenta"])
-print("[Oracle] Contraseña obtenida: ********")
+# print("[Oracle] Cuenta de prueba seleccionada:", ctx.credentials["cuenta"])
+# print("[Oracle] Contraseña obtenida: ********")
 # nuevo fin
 
-ctx.driver = Driver(ctx.page)
+# ctx.driver = Driver(ctx.page)
 playwright = sync_playwright().start()
 browser = playwright.chromium.launch(
     channel="chrome",
@@ -47,7 +44,8 @@ ctx.driver = Driver(ctx.page)
 print(ctx.page)
 print(ctx.driver.page)
 
-ctx.page.goto("https://unijud-qa.pjud.cl/login")
+# ctx.page.goto("https://unijud-qa.pjud.cl/login")
+ctx.page.goto("https://unijud-test.pjud.cl/login")
 
 dispatcher = Dispatcher()
 dispatcher.register("click", ClickExecutor())
@@ -56,23 +54,24 @@ dispatcher.register("select", SelectExecutor())
 
 for i, accion in enumerate(acciones, start=1):
 
-    # print("=" * 70)
-    # print(f"Acción {i}")
-    # print(f"tipo            : {accion.tipo}")
-    # print(f"tipo_logico     : {accion.tipo_logico}")
-    # print(f"tipo_componente : {accion.tipo_componente}")
-    # print(f"texto           : {accion.texto}")
-    # print(f"placeholder     : {accion.placeholder}")
-    # print(f"valor           : {accion.valor}")
-    # print(f"field           : {accion.field}")
-    # print(f"tag             : {accion.tag}")
+    # print("\n" + "=" * 80)
+    # print(f"[REPLAY] ACCIÓN {i}")
+    # print("=" * 80)
+
+    # print(
+    #     f"tipo={accion.tipo} "
+    #     f"logico={accion.tipo_logico} "
+    #     f"componente={accion.tipo_componente} "
+    #     f"texto='{accion.texto}' "
+    #     f"valor='{accion.valor}' "
+    #     f"id='{accion.id}' "
+    #     f"field='{accion.field}'"
+    # )
+
+    # print(f"[REPLAY] URL ANTES = {ctx.page.url}")
 
     dispatcher.dispatch(accion, ctx)
 
-    # input("\nPresione ENTER para continuar...")
     time.sleep(3)
-    # if accion.tag == "BUTTON" and accion.texto == "INICIAR SESIÓN":
-    #     print("\n==============================")
-    #     print("LOGIN EJECUTADO")
-    #     print("==============================")
-    #     input("Revisa el navegador y luego presiona ENTER...")
+
+    # print(f"[REPLAY] URL DESPUÉS = {ctx.page.url}")
