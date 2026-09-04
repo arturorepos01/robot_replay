@@ -45,7 +45,7 @@ print(ctx.page)
 print(ctx.driver.page)
 
 # ctx.page.goto("https://unijud-qa.pjud.cl/login")
-ctx.page.goto("https://unijud-test.pjud.cl/login")
+ctx.page.goto("https://unijud-qa.pjud.cl/login")
 
 dispatcher = Dispatcher()
 dispatcher.register("click", ClickExecutor())

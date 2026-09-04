@@ -199,13 +199,6 @@ class OracleReplayLoader:
                     # container_class = None
 
                     # -------------------------------------------------
-                    # Normalizar valores textuales provenientes de Oracle
-                    # -------------------------------------------------
-
-                    texto = texto if texto is not None else ""
-                    placeholder = placeholder if placeholder is not None else ""
-
-                    # -------------------------------------------------
                     # Construcción EXACTA del modelo Action
                     # utilizado por JsonLoader.
                     # -------------------------------------------------

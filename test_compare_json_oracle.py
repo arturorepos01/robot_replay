@@ -13,7 +13,7 @@ from loader.json_loader import JsonLoader
 from services.oracle_replay_loader import OracleReplayLoader
 
 
-ID_FLOW = 6
+ID_FLOW = 34
 JSON_FILE = PROJECT_ROOT / "user_actions.json"
 
 
@@ -55,11 +55,23 @@ def normalize(value):
     if isinstance(value, date):
         return value.isoformat()
 
+    # if value is None:
+    #     return ""
+    return value
+    # return str(value)
+
+def display_value(value):
+    """
+    Representación inequívoca para diagnóstico.
+    """
+
     if value is None:
-        return ""
+        return "<NULL>"
 
-    return str(value)
+    if value == "":
+        return "<EMPTY>"
 
+    return repr(value)
 
 def is_sensitive(action):
     """
@@ -96,20 +108,68 @@ def safe_value(action):
 
 
 def compare_field(json_action, oracle_action, field):
+
+    json_has_field = hasattr(json_action, field)
+    oracle_has_field = hasattr(oracle_action, field)
+
+    if not json_has_field or not oracle_has_field:
+
+        return {
+            "status": "ERROR",
+            "json": (
+                getattr(json_action, field)
+                if json_has_field
+                else "<ATRIBUTO_INEXISTENTE>"
+            ),
+            "oracle": (
+                getattr(oracle_action, field)
+                if oracle_has_field
+                else "<ATRIBUTO_INEXISTENTE>"
+            ),
+        }
+
     if field == "valor":
-        left = safe_value(json_action)
-        right = safe_value(oracle_action)
 
-        # En una acción sensible no comparamos la representación
-        # real del secreto.
-        if is_sensitive(json_action) or is_sensitive(oracle_action):
-            return True, left, right
+        json_sensitive = is_sensitive(json_action)
+        oracle_sensitive = is_sensitive(oracle_action)
 
-    else:
-        left = normalize(getattr(json_action, field, None))
-        right = normalize(getattr(oracle_action, field, None))
+        if json_sensitive or oracle_sensitive:
 
-    return left == right, left, right
+            return {
+                "status": "SENSITIVE",
+                "json": "<OCULTO>",
+                "oracle": "<OCULTO>",
+            }
+
+    left = normalize(getattr(json_action, field))
+    right = normalize(getattr(oracle_action, field))
+
+    if left == right:
+
+        return {
+            "status": "OK",
+            "json": left,
+            "oracle": right,
+        }
+
+    # Diferencia NULL vs cadena vacía.
+    if (
+        (left is None and right == "")
+        or
+        (left == "" and right is None)
+    ):
+
+        return {
+            "status": "WARNING",
+            "json": left,
+            "oracle": right,
+        }
+
+    return {
+        "status": "ERROR",
+        "json": left,
+        "oracle": right,
+    }
 
 
 def main():
@@ -207,7 +267,8 @@ def main():
     # ---------------------------------------------------------------
 
     total_ok = 0
-    total_diferencias = 0
+    total_warnings = 0
+    total_errors = 0
 
     for index, (json_action, oracle_action) in enumerate(
         zip(json_actions, oracle_actions),
@@ -218,64 +279,113 @@ def main():
 
         for field in FIELDS:
 
-            ok, left, right = compare_field(
+            resultado = compare_field(
                 json_action,
                 oracle_action,
                 field,
             )
 
-            if not ok:
+            if resultado["status"] != "OK":
+
                 diferencias.append(
                     (
                         field,
-                        left,
-                        right,
+                        resultado["status"],
+                        resultado["json"],
+                        resultado["oracle"],
                     )
                 )
 
-        seq_oracle = getattr(
-            oracle_action,
-            "_oracle_secuencia",
-            None,
+    # ---------------------------------------------------------------
+    # VALIDACIÓN DEL ORDEN DE EJECUCIÓN
+    # ---------------------------------------------------------------
+
+    seq_oracle = getattr(
+        oracle_action,
+        "_oracle_secuencia",
+        None,
+    )
+
+    if seq_oracle is None:
+
+        print(
+            f"[INFO] Acción #{index}: "
+            "_oracle_secuencia no disponible"
         )
 
-        id_accion = getattr(
-            oracle_action,
-            "_oracle_id_accion",
-            None,
+    elif seq_oracle != index:
+
+        diferencias.append(
+            (
+                "secuencia",
+                "ERROR",
+                index,
+                seq_oracle,
+            )
         )
 
-        if diferencias:
+    # ---------------------------------------------------------------
+    # VALIDACIÓN DE ID_ACCION
+    # ---------------------------------------------------------------
 
-            total_diferencias += 1
+    id_accion = getattr(
+        oracle_action,
+        "_oracle_id_accion",
+        None,
+    )
 
-            print()
+    if id_accion is None:
+
+        print(
+            f"[INFO] Acción #{index}: "
+            "_oracle_id_accion no disponible"
+        )
+
+    # ---------------------------------------------------------------
+    # PROCESAR RESULTADO DE LA ACCIÓN
+    # ---------------------------------------------------------------
+
+    if diferencias:
+
+        accion_tiene_error = False
+        accion_tiene_warning = False
+
+        for field, status, left, right in diferencias:
+
+            if status == "ERROR":
+                accion_tiene_error = True
+
+            elif status == "WARNING":
+                accion_tiene_warning = True
+
+        if accion_tiene_error:
+            total_errors += 1
+
+        elif accion_tiene_warning:
+            total_warnings += 1
+
+        print()
+        print(
+            f"[{('ERROR' if accion_tiene_error else 'WARNING')}] "
+            f"Acción #{index} "
+            f"| SEQ={seq_oracle} "
+            f"| ID_ACCION={id_accion}"
+        )
+
+        for field, status, left, right in diferencias:
             print(
-                f"[DIFERENCIA] Acción #{index} "
-                f"| SEQ={seq_oracle} "
-                f"| ID_ACCION={id_accion}"
+                f"   {field} [{status}]"
+            )
+            print(
+                f"      JSON   = {display_value(left)}"
+            )
+            print(
+                f"      ORACLE = {display_value(right)}"
             )
 
-            for field, left, right in diferencias:
+    else:
 
-                # Nunca exponer secretos.
-                if field == "valor":
-                    left = "********"
-                    right = "********"
-
-                print(
-                    f"   {field}:"
-                )
-                print(
-                    f"      JSON   = {left!r}"
-                )
-                print(
-                    f"      ORACLE = {right!r}"
-                )
-
-        else:
-
-            total_ok += 1
+        total_ok += 1
 
     # ---------------------------------------------------------------
     # Resultado
@@ -295,15 +405,30 @@ def main():
     )
 
     print(
-        f"Acciones con cambios: {total_diferencias}"
+        f"Acciones WARNING     : {total_warnings}"
     )
 
-    if total_diferencias == 0:
+    print(
+        f"Acciones ERROR       : {total_errors}"
+    )
+
+    if total_errors == 0:
 
         print()
-        print(
-            "OK - JSON y Oracle producen Action[] equivalente"
-        )
+        if total_warnings == 0:
+
+            print(
+                "OK - JSON y Oracle producen Action[] "
+                "equivalente para replay"
+            )
+
+        else:
+
+            print(
+                "OK CON ADVERTENCIAS - "
+                "No existen diferencias funcionales, "
+                "pero existen diferencias de representación."
+            )
 
     else:
 

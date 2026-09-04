@@ -2,8 +2,6 @@ import json
 import time
 
 from services.oracle_credentials import OracleCredentials
-from services.oracle_replay_loader import OracleReplayLoader
-
 from loader.json_loader import JsonLoader
 from models.replay_context import ReplayContext
 from engine.dispatcher import Dispatcher
@@ -56,28 +54,11 @@ ctx.credentials = credentials
 # 4. CARGAR ACCIONES DEL ROBOT
 # ----------------------------------------------------------------------
 
-# loader = JsonLoader()
-# acciones = loader.load("user_actions.json")
-# print("[TEST] Acciones cargadas:", len(acciones))
+loader = JsonLoader()
 
-import sys
+acciones = loader.load("user_actions.json")
 
-if len(sys.argv) != 2:
-    print("Uso: python test_oracle_replay.py <ID_FLOW>")
-    sys.exit(1)
-
-ID_FLOW = int(sys.argv[1])
-
-loader = OracleReplayLoader(config)
-
-flow, acciones = loader.load(ID_FLOW)
-
-print("[TEST] Flow cargado desde Oracle:")
-print("       ID_FLOW:", flow["id_flow"])
-print("       FLOW_ID:", flow["flow_id"])
-print("       NOMBRE :", flow["nombre"])
-
-print("[TEST] Acciones cargadas desde Oracle:", len(acciones))
+print("[TEST] Acciones cargadas:", len(acciones))
 print()
 
 
@@ -123,7 +104,7 @@ print()
 # 8. EJECUTAR SOLAMENTE LAS ACCIONES DEL LOGIN
 # ----------------------------------------------------------------------
 
-for i, accion in enumerate(acciones, start=1):
+for i, accion in enumerate(acciones[:32], start=1):
 
     print("-" * 80)
     print(f"[TEST] ACCIÓN {i}")
